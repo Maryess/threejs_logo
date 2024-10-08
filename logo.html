@@ -2,13 +2,27 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=	, initial-scale=1.0">
-	<title>Logo 3D</title>
+	<meta charset="utf-8">
+	<title>My first logo 3d</title>
+	<style>
+		body {
+			margin: 0;
+		}
+	</style>
 </head>
 
 <body>
-	<script src="./logo.js"></script>
+	<script type="importmap">
+		{
+			"imports": {
+				"three": "https://cdn.jsdelivr.net/npm/three/build/three.module.js"
+			}
+		}
+		</script>
+
+	<script type="module" src='./logo.js'>
+	</script>
+
 </body>
 
 </html>
