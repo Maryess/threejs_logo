@@ -1,5 +1,7 @@
 import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+
 const camera = new THREE.PerspectiveCamera(
 	100,
 	window.innerWidth / window.innerHeight,
@@ -13,6 +15,7 @@ const scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer({
 	canvas,
 	alpha: true,
+	antialias: true,
 });
 
 //3d model from blender
@@ -56,12 +59,19 @@ floor.receiveShadow = true;
 floor.rotation.x = -Math.PI * 0.5;
 scene.add(floor);
 
-// //hemLight
-const light = new THREE.PointLight(0xeeeeee);
-light.position.set(20, 0, 20);
+//hemLight
+//Add light
+const light = new THREE.AmbientLight(0xffffff);
 scene.add(light);
-const lightAmb = new THREE.AmbientLight(0x777777);
-scene.add(lightAmb);
+// const hemLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.61);
+// hemLight.position.set(0, 50, 0);
+// scene.add(hemLight);
+
+// const dirLight = new THREE.DirectionalLight(0xffffff, 0.54);
+// dirLight.position.set(-8, 12, 8);
+// dirLight.castShadow = true;
+// dirLight.shadow.mapSize = new THREE.Vector2(1025, 1024);
+// scene.add(dirLight);
 
 //tick
 // const tick = () => {
@@ -96,6 +106,10 @@ document.body.appendChild(renderer.domElement);
 
 camera.position.z = 5;
 
+const controls = new OrbitControls(camera, canvas);
+controls.target.set(0, 5, 0);
+controls.update();
+
 function animate() {
 	requestAnimationFrame(animate);
 	// cube.rotation.x += 0.01;
@@ -104,5 +118,4 @@ function animate() {
 	// line.rotation.y += 0.01;
 	renderer.render(scene, camera);
 }
-
 animate();
